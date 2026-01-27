@@ -2,6 +2,7 @@ using CinemaFanShop.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CinemaFanShop.Infrastructure.Data.Entities;
+using CinemaFanShop.Infrastructure.Data.Infrastructure;
 
 
 namespace CinemaFanShop
@@ -27,10 +28,13 @@ namespace CinemaFanShop
                 options.Password.RequiredLength = 5;
                 ;
             } )
+
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
+            app.PrepareDatabase();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
